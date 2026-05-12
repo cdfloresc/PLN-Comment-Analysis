@@ -1,11 +1,11 @@
 # PLN-Comment-Analysis
 
-Proyecto de Procesamiento de Lenguaje Natural (NLP) diseñado para agrupar (clustering) grandes volúmenes de comentarios utilizando técnicas de similitud de Jaccard y una API con FastAPI. El proyecto cuenta además con un Dashboard interactivo en React/Vite para visualizar los resultados (Dendrogramas y Treemaps).
+Proyecto de Procesamiento de Lenguaje Natural (NLP) diseñado para agrupar (clustering) grandes volúmenes de comentarios utilizando vectorización TF-IDF y Agrupamiento Jerárquico Aglomerativo (usando Enlace de Ward y distancia Euclidiana). El proyecto cuenta además con una API en FastAPI y un Dashboard interactivo en React/Vite para visualizar los resultados (Dendrogramas y Treemaps).
 
 ## Estructura del Proyecto
 
 El repositorio está dividido en dos partes principales:
-1. **Backend (Python / FastAPI):** Procesa los datos, limpia los comentarios, calcula similitudes y genera los clusters.
+1. **Backend (Python / FastAPI):** Procesa los datos, limpia los comentarios, vectoriza el texto y genera los clusters.
 2. **Frontend (React / Vite):** Interfaz de usuario para visualizar los análisis en tiempo real.
 
 ## 🛠️ Requisitos y Librerías
@@ -15,9 +15,9 @@ Asegúrate de tener **Python 3.8+** instalado. Las librerías principales utiliz
 - `fastapi`: Framework web para construir la API.
 - `uvicorn`: Servidor ASGI para ejecutar la API.
 - `pandas` y `numpy`: Manipulación y análisis de datos.
-- `scikit-learn`: Para cálculos de TF-IDF y clustering (AgglomerativeClustering, DBSCAN, etc.).
-- `scipy`: Para el cálculo de distancias y matrices dispersas.
-- `nltk` o `spacy` (según se requiera para limpieza de texto).
+- `scikit-learn`: Para cálculos de TF-IDF y agrupamiento jerárquico (`AgglomerativeClustering`).
+- `scipy`: Para el cálculo de distancias y la creación del árbol jerárquico (`scipy.cluster.hierarchy`).
+- `spacy`: Para el proceso de lematización y limpieza del texto mediante expresiones regulares.
 
 ### Para el Frontend (Node.js)
 Asegúrate de tener **Node.js (v16+)** instalado.
@@ -46,7 +46,8 @@ Asegúrate de tener **Node.js (v16+)** instalado.
 3. **Instalar las dependencias:**
    (Si tienes un archivo `requirements.txt`, ejecuta `pip install -r requirements.txt`. Si no, instala las necesarias manualmente):
    ```bash
-   pip install fastapi uvicorn pandas numpy scikit-learn scipy
+   pip install fastapi uvicorn pandas numpy scikit-learn scipy spacy
+   python -m spacy download es_core_news_sm
    ```
 
 4. **Iniciar el servidor Backend:**
